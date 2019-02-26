@@ -1,7 +1,20 @@
 import { Component } from "react";
 import Head from "next/head";
+import { Table } from "antd";
+import ApiUtility from "../lib/api/apiUtility";
+import UserUtiliy from "../lib/models/userUtility";
 
 class Home extends Component {
+  static async getInitialProps() {
+    const users = await ApiUtility.getCollectionOf("users");
+    const table = UserUtiliy.createSourceForTable(users);
+    const columns = UserUtiliy.createColumns(["Name", "Email"]);
+    return {
+      users: table,
+      columns: columns
+    };
+  }
+
   render() {
     return (
       <div>
@@ -14,8 +27,12 @@ class Home extends Component {
             />
             <link rel="stylesheet" type="text/css" href="/static/style.css" />
           </Head>
-          <h1>Hello World!</h1>
-          <h2 className="red">Red Title</h2>
+          <h1 className="red">Hello World!</h1>
+          <Table
+            dataSource={this.props.users}
+            columns={this.props.columns}
+            pagination={false}
+          />
         </div>
       </div>
     );
