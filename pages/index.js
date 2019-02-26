@@ -1,6 +1,7 @@
 import { Component } from "react";
 import Head from "next/head";
 import { Table } from "antd";
+import CustomTitle from "../components/customTitle";
 import ApiUtility from "../lib/api/apiUtility";
 import UserUtiliy from "../lib/models/userUtility";
 
@@ -27,7 +28,7 @@ class Home extends Component {
             />
             <link rel="stylesheet" type="text/css" href="/static/style.css" />
           </Head>
-          <h1 className="red">Hello World!</h1>
+          <CustomTitle title="Hello World" />
           <Table
             dataSource={this.props.users}
             columns={this.props.columns}
